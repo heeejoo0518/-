@@ -80,7 +80,6 @@ void inorder(BTreeNode* Tree, int m) {
 	if (Tree == NULL) return;
 	for (int i = 0; i < Tree->n; i++) {
 		inorder(Tree->childPtr[i], m);
-		//if (Tree->key[i] != 0) 
 		cout << Tree->key[i] << " ";
 	}
 	inorder(Tree->childPtr[Tree->n], m);
@@ -169,7 +168,7 @@ void insertBT(BTreeNode* Tree, int m, int newKey) {
 	} while (!finish);
 }
 
-//newnode에 newkey를 넣고 정렬하는 함수
+//newnode에 newkey를 넣고 노드 내에서 정렬하는 함수
 void insert_tempNode(BTreeNode* newnode, int newKey) {
 	//newnode 맨 마지막자리에 newKey,pointer삽입
 	newnode->key[newnode->n] = newKey;
@@ -366,13 +365,13 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 
 			int k;
 			for (k = 0; k < m; k++) {
-				//bestSibling이 왼쪽,flag==true
+				//bestSibling이 왼쪽
 				if (y->childPtr[k] == bestSibling) {
 					left = bestSibling;
 					right = x;
 					break;
 				}
-				//x가 왼쪽,flag==false
+				//x가 왼쪽
 				else if (y->childPtr[k] == x) {
 					left = x;
 					right = bestSibling;
@@ -384,7 +383,7 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 			y->key[k] = 0;
 			left->n++;
 
-			//y 새로 정렬
+			//부모노드 y 새로 정렬
 			for (int j = k; j < y->n; j++) {
 				int tmpKey; BTreeNode* tmpNode;
 				tmpKey = y->key[j];
@@ -430,6 +429,7 @@ bool underflow(int n, int m) {
 	if (n < (m / 2 - 1)) return true; //underflow
 	return false;
 }
+
 bool existAvailableSibling(BTreeNode* x, BTreeNode* y, int m) {
 	bool result = false;
 	int i = 0;
@@ -446,6 +446,7 @@ bool existAvailableSibling(BTreeNode* x, BTreeNode* y, int m) {
 	}
 	return result;
 }
+
 BTreeNode* chooseBestSibling(BTreeNode* x, BTreeNode* y, int m) {
 	int i = 0;
 	BTreeNode* left = getNode();
