@@ -31,7 +31,7 @@ int main() {
 	int deletion[] = { 40, 132, 19, 128, 138, 100, 16, 145, 70, 42,
 		22, 41, 62, 110, 140, 15, 65, 124, 122, 123,
 		30, 20, 59, 57, 54, 33, 75, 136, 150, 120,
-	   69, 43, 26, 60, 130, 50, 18, 7, 36, 58 };
+		69, 43, 26, 60, 130, 50, 18, 7, 36, 58 };
 
 	cout << "m=3" << endl;
 	T = getNode();
@@ -299,16 +299,16 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 			BTreeNode* left = NULL;
 			BTreeNode* right = NULL;
 
-			int i;
-			for (i = 0; i < m; i++) {
+			int k;
+			for (k = 0; k < m; k++) {
 				//bestSibling이 왼쪽,flag==true
-				if (y->childPtr[i] == bestSibling) {
+				if (y->childPtr[k] == bestSibling) {
 					left = bestSibling;
 					right = x;
 					break;
 				}
 				//x가 왼쪽,flag==false
-				else if (y->childPtr[i] == x) {
+				else if (y->childPtr[k] == x) {
 					left = x;
 					right = bestSibling;
 					break;
@@ -319,7 +319,7 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 
 			//tempNode에 left 넣음
 			tempNode = left;
-			tempNode->key[tempNode->n] = y->key[i];
+			tempNode->key[tempNode->n] = y->key[k];
 			tempNode->n++;
 
 			for (int i = 0; i < right->n; i++) {
@@ -333,7 +333,7 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 			//중간값을 y에 넣는다.
 			int mid = tempNode->n;
 			mid /= 2;
-			y->key[i] = tempNode->key[mid];
+			y->key[k] = tempNode->key[mid];
 			tempNode->key[mid] = 0;
 
 
@@ -364,30 +364,28 @@ void deleteBT(BTreeNode* Tree, int m, int oldKey) {
 			BTreeNode* left = NULL;
 			BTreeNode* right = NULL;
 
-			int i;
-			for (i = 0; i < m; i++) {
+			int k;
+			for (k = 0; k < m; k++) {
 				//bestSibling이 왼쪽,flag==true
-				if (y->childPtr[i] == bestSibling) {
+				if (y->childPtr[k] == bestSibling) {
 					left = bestSibling;
 					right = x;
-
 					break;
 				}
 				//x가 왼쪽,flag==false
-				else if (y->childPtr[i] == x) {
+				else if (y->childPtr[k] == x) {
 					left = x;
 					right = bestSibling;
-
 					break;
 				}
 			}
 
-			left->key[left->n] = y->key[i];
-			y->key[i] = 0;
+			left->key[left->n] = y->key[k];
+			y->key[k] = 0;
 			left->n++;
 
 			//y 새로 정렬
-			for (int j = i; j < y->n; j++) {
+			for (int j = k; j < y->n; j++) {
 				int tmpKey; BTreeNode* tmpNode;
 				tmpKey = y->key[j];
 				tmpNode = y->childPtr[j + 1];
